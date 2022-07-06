@@ -10,10 +10,25 @@ ANY KIND, either express or implied. See the License for the specific language g
 permissions and limitations under the License.
 ************************************************************************************/
 
-using System;
+using UnityEngine;
 
-namespace Oculus.Interaction.Deprecated
+namespace Oculus.Interaction
 {
-    [Obsolete("Replaced by CandidateComparer")]
-    public class InteractorComparer<T> { }
+    public abstract class InteractorComparer<T> : MonoBehaviour, IInteractorComparer where T:class
+    {
+        public int Compare(IInteractor a, IInteractor b)
+        {
+            T typedA = a as T;
+            T typedB = b as T;
+
+            if (typedA != null && typedB != null)
+            {
+                return Compare(typedA, typedB);
+            }
+
+            return 0;
+        }
+
+        public abstract int Compare(T a, T b);
+    }
 }

@@ -10,10 +10,10 @@ ANY KIND, either express or implied. See the License for the specific language g
 permissions and limitations under the License.
 ************************************************************************************/
 
-using System;
-
-namespace Oculus.Interaction.Deprecated
+namespace Oculus.Interaction
 {
-    [Obsolete("Replaced by ICandidateComparer")]
-    public interface IInteractorComparer { }
+    public interface IInteractorComparer
+    {
+        int Compare(IInteractor a, IInteractor b) ;
+    }
 }

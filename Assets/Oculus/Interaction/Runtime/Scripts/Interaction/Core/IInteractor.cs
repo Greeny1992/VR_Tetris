@@ -11,6 +11,7 @@ permissions and limitations under the License.
 ************************************************************************************/
 
 using System;
+using UnityEngine;
 
 namespace Oculus.Interaction
 {
@@ -23,13 +24,9 @@ namespace Oculus.Interaction
     /// <summary>
     /// IInteractorView defines the view for an object that can interact with other objects.
     /// </summary>
-    public interface IInteractorView
+    public interface IInteractorView : IComponent
     {
         int Identifier { get; }
-
-        bool HasCandidate { get; }
-        object Candidate { get; }
-
         bool HasInteractable { get; }
         bool HasSelectedInteractable { get; }
 
@@ -48,14 +45,36 @@ namespace Oculus.Interaction
         void Disable();
 
         void UpdateInteractor();
-        void UpdateCandidate();
         void Hover();
         void Select();
         void Unselect();
 
+        bool HasCandidate { get; }
         bool ShouldSelect { get; }
         bool ShouldUnselect { get; }
+    }
 
-        bool IsRootDriver { get; set; }
+    /// <summary>
+    /// IInteractorView{out TInteractable} defines an InteractorView with concretely typed
+    /// Interactable members.
+    /// </summary>
+    public interface IInteractorView<out TInteractable> : IInteractorView
+    {
+        MAction<TInteractable> WhenInteractableSet { get; }
+        MAction<TInteractable> WhenInteractableUnset { get; }
+        MAction<TInteractable> WhenInteractableSelected { get; }
+        MAction<TInteractable> WhenInteractableUnselected { get; }
+        TInteractable Candidate { get; }
+        TInteractable Interactable { get; }
+        TInteractable SelectedInteractable { get; }
+    }
+
+    /// <summary>
+    /// IInteractor{out TInteractable} defines an IInteractor with concretely typed
+    /// Interactable members.
+    /// </summary>
+    public interface IInteractor<TInteractable> : IInteractor, IInteractorView<TInteractable>
+    {
+        bool IsFilterPassedBy(TInteractable interactable);
     }
 }

@@ -15,7 +15,7 @@ namespace Facebook.WitAi.Windows
     public class WitWelcomeWizard : WitScriptableWizard
     {
         protected string serverToken;
-        public Action<WitConfiguration> successAction;
+        public Action successAction;
 
         protected override Texture2D HeaderIcon => WitStyles.HeaderIcon;
         protected override GUIContent Title => WitStyles.SetupTitleContent;
@@ -25,8 +25,10 @@ namespace Facebook.WitAi.Windows
         protected override void OnEnable()
         {
             base.OnEnable();
-            serverToken = string.Empty;
-            WitAuthUtility.ServerToken = serverToken;
+            if (string.IsNullOrEmpty(serverToken))
+            {
+                serverToken = WitAuthUtility.ServerToken;
+            }
         }
         protected override bool DrawWizardGUI()
         {
@@ -61,14 +63,13 @@ namespace Facebook.WitAi.Windows
                 {
                     // Complete
                     Close();
-                    WitConfiguration c = WitConfigurationUtility.WitConfigs[index];
                     if (successAction == null)
                     {
-                        WitWindowUtility.OpenConfigurationWindow(c);
+                        WitWindowUtility.OpenConfigurationWindow();
                     }
                     else
                     {
-                        successAction(c);
+                        successAction();
                     }
                 }
             }

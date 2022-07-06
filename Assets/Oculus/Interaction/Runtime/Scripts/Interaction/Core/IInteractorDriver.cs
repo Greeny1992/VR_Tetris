@@ -10,10 +10,29 @@ ANY KIND, either express or implied. See the License for the specific language g
 permissions and limitations under the License.
 ************************************************************************************/
 
-using System;
-
-namespace Oculus.Interaction.Deprecated
+namespace Oculus.Interaction
 {
-    [Obsolete]
-    public interface IInteractorDriver { }
+    /// <summary>
+    /// IInteractionDriver drives the update loop of an Interaction.
+    /// </summary>
+    public interface IInteractorDriver
+    {
+        // This flag determines whether this driver should controls its own update loop
+        bool IsRootInteractorDriver { get; set; }
+
+        bool HasCandidate { get; }
+        IInteractor CandidateInteractor { get; }
+
+        bool ShouldSelect { get; }
+
+        bool IsHovering { get; }
+        bool IsSelecting { get; }
+        bool IsSelectingInteractable { get; }
+
+        void UpdateInteraction();
+        void UpdateHover();
+        void UpdateSelection(bool selectionCanBeEmpty);
+        void Enable();
+        void Disable();
+    }
 }

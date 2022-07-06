@@ -5,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-using System;
 using UnityEngine;
 using Facebook.WitAi.Data.Configuration;
 
@@ -29,19 +28,11 @@ namespace Facebook.WitAi.Windows
             }
         }
         protected virtual WitStyles.WitAppEndpointType HeaderEndpointType => WitStyles.WitAppEndpointType.Settings;
-        protected virtual void SetConfiguration(int newConfigIndex)
+        protected virtual void SetConfiguration(int newConfiguration)
         {
-            witConfigIndex = newConfigIndex;
+            witConfigIndex = newConfiguration;
             WitConfiguration[] witConfigs = WitConfigurationUtility.WitConfigs;
             witConfiguration = witConfigs != null && witConfigIndex >= 0 && witConfigIndex < witConfigs.Length ? witConfigs[witConfigIndex] : null;
-        }
-        public virtual void SetConfiguration(WitConfiguration newConfiguration)
-        {
-            int newConfigIndex = newConfiguration == null ? -1 : Array.IndexOf(WitConfigurationUtility.WitConfigs, newConfiguration);
-            if (newConfigIndex != -1)
-            {
-                SetConfiguration(newConfigIndex);
-            }
         }
         protected override void OnEnable()
         {

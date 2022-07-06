@@ -11,9 +11,10 @@ permissions and limitations under the License.
 ************************************************************************************/
 
 using System;
+using UnityEngine;
 
 namespace Oculus.Interaction.Deprecated
 {
     [Obsolete("Replaced by FixedScaleHand")]
-    public class FixedScaleDataModifier { }
+    public class FixedScaleDataModifier : MonoBehaviour { }
 }

@@ -16,7 +16,6 @@ namespace Facebook.WitAi.Windows
         protected WitConfigurationEditor witInspector;
         protected string serverToken;
         protected override GUIContent Title => WitStyles.SettingsTitleContent;
-        protected override string HeaderUrl => witInspector ? witInspector.HeaderUrl : base.HeaderUrl;
 
         protected override void OnEnable()
         {
@@ -44,13 +43,9 @@ namespace Facebook.WitAi.Windows
             GUILayout.BeginHorizontal();
             bool updated = false;
             WitEditorUI.LayoutPasswordField(WitStyles.SettingsServerTokenContent, ref serverToken, ref updated);
-            if (updated && witInspector != null)
-            {
-                witInspector.ApplyServerToken(serverToken);
-            }
             if (WitEditorUI.LayoutTextButton(WitStyles.Texts.SettingsRelinkButtonLabel))
             {
-                RelinkServerToken();
+                ApplyServerToken();
             }
             if (WitEditorUI.LayoutTextButton(WitStyles.Texts.SettingsAddButtonLabel))
             {
@@ -78,7 +73,7 @@ namespace Facebook.WitAi.Windows
             }
         }
         // Apply server token
-        private void RelinkServerToken()
+        private void ApplyServerToken()
         {
             // Open Setup if Invalid
             if (!WitConfigurationUtility.IsServerTokenValid(serverToken))

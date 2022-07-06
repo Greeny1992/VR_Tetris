@@ -5,10 +5,11 @@ using UnityEngine.Events;
 
 public class TetrominoMoveConstantlyDown : MonoBehaviour
 {
-    [SerializeField] private bool usePhysics = false;
+    public bool usePhysics = false;
     [SerializeField] private float force = 1f;
     [SerializeField] private float timeInterval = 1f;
     [SerializeField] private float travelDistance = 1f;
+    bool enabled = false;
 
     private float currentTime = 0f;
 
@@ -29,23 +30,19 @@ public class TetrominoMoveConstantlyDown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!usePhysics)
+        if(!enabled)
         {
-            currentTime += Time.deltaTime;
-
-            if (currentTime >= timeInterval)
+            if (!usePhysics)
             {
-                //Ray ray = new Ray(transform.position, Vector3.down);
-                //RaycastHit hit;
-                //if (Physics.Raycast(ray, out hit))
-                //{
-                //    if (hit.distance <= 0.1f)
-                //        Destroy(gameObject);
-                //    //return;// return; //replace me - hier passiert was wenn wir net weiter runter gehn solln
-                //}
-                transform.position += Vector3.down * travelDistance;
-                currentTime = 0f;
+                currentTime += Time.deltaTime;
+
+                if (currentTime >= timeInterval)
+                {
+                    transform.position += Vector3.down * travelDistance;
+                    currentTime = 0f;
+                }
             }
         }
+        
     }
 }

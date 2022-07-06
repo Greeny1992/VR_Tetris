@@ -33,12 +33,20 @@ namespace Facebook.WitAi.Data.Configuration
         public static string[] WitConfigNames => witConfigNames;
 
         // Has configuration
-        public static bool HasValidCustomConfig()
+        public static bool HasValidConfig()
         {
             // Refresh list
             ReloadConfigurationData();
-            // Find a valid custom configuration
-            return Array.Exists(witConfigs, (c) => !c.isDemoOnly);
+            // Check configs
+            for (int i = 0; i < witConfigs.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(witConfigs[i].clientAccessToken))
+                {
+                    return true;
+                }
+            }
+            // None found
+            return false;
         }
         // Refresh configuration asset list
         public static void ReloadConfigurationData()
@@ -165,10 +173,11 @@ namespace Facebook.WitAi.Data.Configuration
                     {
                         var application = WitApplication.FromJson(applications[i]);
                         WitAuthUtility.SetAppServerToken(application.id, serverToken);
-                        break;
+                        onRequestComplete("");
+                        return;
                     }
                 }
-                onRequestComplete("");
+                onRequestComplete("No matching application found!");
             }, (error) =>
             {
                 SetServerTokenComplete(serverToken, error, onSetComplete);
@@ -326,11 +335,8 @@ namespace Facebook.WitAi.Data.Configuration
             configuration.application.witConfiguration = configuration;
             configuration.application.UpdateData(() =>
             {
-                if (configuration != null)
-                {
-                    EditorUtility.SetDirty(configuration);
-                    RefreshIntentsData(configuration, onRefreshComplete);
-                }
+                EditorUtility.SetDirty(configuration);
+                RefreshIntentsData(configuration, onRefreshComplete);
             });
         }
         // Refresh intents data

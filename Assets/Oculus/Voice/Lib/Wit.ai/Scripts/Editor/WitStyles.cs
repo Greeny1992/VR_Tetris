@@ -112,7 +112,6 @@ namespace Facebook.WitAi
         // Spacing
         public const float HeaderWidth = 350f;
         public const float HeaderPaddingBottom = 8f;
-        public const float WizardFieldPadding = 16f;
         // Text padding
         public const float ButtonMargin = 5f;
 

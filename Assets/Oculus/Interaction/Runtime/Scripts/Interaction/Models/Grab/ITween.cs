@@ -10,10 +10,17 @@ ANY KIND, either express or implied. See the License for the specific language g
 permissions and limitations under the License.
 ************************************************************************************/
 
-using System;
+using UnityEngine;
 
-namespace Oculus.Interaction.Deprecated
+namespace Oculus.Interaction
 {
-    [Obsolete("Replaced by IMovement")]
-    public interface ITween { }
+    public interface ITween
+    {
+        Pose Pose { get; }
+        bool Stopped { get; }
+        void TweenTo(Pose target);
+        void UpdateTarget(Pose target);
+        void StopAndSetPose(Pose pose);
+        void Tick();
+    }
 }

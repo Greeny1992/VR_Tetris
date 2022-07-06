@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Tetris_scene.unity
+    guid: 10518fe42d1b1894d90e745392387f0f
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 7e4f0a4730e14a94d8abc2ef797cf8a6, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 315b3899143813a49a34c3a6c7c0c35a, type: 2}
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 875f48323f2f3614d988b331b3817484, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c5554bdf89d23df489adf20ac47245f8, type: 2}
